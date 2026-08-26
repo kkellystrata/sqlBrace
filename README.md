@@ -35,3 +35,8 @@ Or run it directly, reading settings from a `.env` file:
 cp .env.example .env   # then fill in your values
 python sqlbrace.py
 ```
+
+If you see `SSL Provider: The certificate chain was issued by an authority
+that is not trusted`, the server's certificate isn't CA-signed (common for
+local/dev instances). Pass `trust_server_certificate=True`, or set
+`SQLBRACE_TRUST_SERVER_CERTIFICATE=true` in `.env`.

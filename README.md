@@ -1,6 +1,6 @@
 # sqlBrace
 
-A lightweight Python connector for Microsoft SQL Server, built on `pyodbc`.
+Connects to SQL Server and lists the table names.
 
 ## Requirements
 
@@ -16,44 +16,21 @@ pip install -r requirements.txt
 ## Usage
 
 ```python
-from sqlbrace import SqlBrace, SqlBraceConfig
+from sqlbrace import get_table_names
 
-config = SqlBraceConfig(
+tables = get_table_names(
     server="your-server.database.windows.net",
     database="your-database",
     username="your-username",
     password="your-password",
 )
-
-with SqlBrace(config) as db:
-    rows = db.fetch_all("SELECT TOP 10 * FROM sys.tables")
-    for row in rows:
-        print(row)
+print(tables)
 ```
 
-Config can also be loaded from environment variables (see `.env.example`):
+Omit `username`/`password` to connect with Windows Authentication instead.
 
-```python
-config = SqlBraceConfig.from_env()
-```
-
-Set `SQLBRACE_TRUSTED_CONNECTION=true` (or `trusted_connection=True`) to use
-Windows Authentication instead of a username/password.
-
-## Queries
-
-- `db.fetch_all(query, params)` — returns a list of dicts
-- `db.fetch_one(query, params)` — returns a single dict or `None`
-- `db.execute_non_query(query, params)` — for INSERT/UPDATE/DELETE, commits and returns the affected row count
-
-Always pass values via `params` (a list/tuple of `?` placeholders) rather than
-string-formatting them into the query, to avoid SQL injection.
-
-## Tests
+Or run it directly using environment variables (see `.env.example`):
 
 ```bash
-pip install pytest
-pytest
+python sqlbrace.py
 ```
-
-Tests mock `pyodbc`, so no live SQL Server connection is required.

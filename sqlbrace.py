@@ -3,6 +3,7 @@
 import os
 
 import pyodbc
+from dotenv import load_dotenv
 
 
 def get_table_names(server, database, username=None, password=None, driver="ODBC Driver 18 for SQL Server"):
@@ -21,6 +22,8 @@ def get_table_names(server, database, username=None, password=None, driver="ODBC
 
 
 if __name__ == "__main__":
+    load_dotenv()
+
     tables = get_table_names(
         server=os.environ["SQLBRACE_SERVER"],
         database=os.environ["SQLBRACE_DATABASE"],

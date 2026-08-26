@@ -29,8 +29,9 @@ print(tables)
 
 Omit `username`/`password` to connect with Windows Authentication instead.
 
-Or run it directly using environment variables (see `.env.example`):
+Or run it directly, reading settings from a `.env` file:
 
 ```bash
+cp .env.example .env   # then fill in your values
 python sqlbrace.py
 ```
